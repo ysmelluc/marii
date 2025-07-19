@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Para Marianyeli 💖</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #fde2e4, #fad2e1, #cdb4db);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      flex-direction: column;
+    }
+
+    .oculto {
+      display: none;
+    }
+
+    .imagen {
+      width: 300px;
+      cursor: pointer;
+      border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+    }
+
+    .imagen:hover {
+      transform: scale(1.05);
+      box-shadow: 0 14px 28px rgba(0,0,0,0.3);
+    }
+
+    .boton {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      background-color: #ffafcc;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Paso 1: Carta cerrada -->
+  <img id="cartaCerrada" class="imagen" src="carta-cerrada.png" alt="Carta Cerrada">
+
+  <!-- Paso 2: Carta abierta -->
+  <img id="cartaAbierta" class="imagen oculto" src="carta-abierta.png" alt="Carta Abierta">
+
+  <!-- Paso 3: Opciones -->
+  <div id="opciones" class="oculto">
+    <img id="copito" class="imagen" src="copito.png" alt="Copito">
+    <img id="dibujo" class="imagen" src="dibujo.png" alt="Dibujo">
+    <img id="carta" class="imagen" src="carta.png" alt="Carta">
+  </div>
+
+  <!-- Paso 4: Contenedor de resultado -->
+  <div id="resultado" class="oculto">
+    <img id="imagenResultado" class="imagen" src="" alt="">
+    <button class="boton" id="volver">Atrás</button>
+  </div>
+
+  <!-- Paso 5: Carta con 3 páginas -->
+  <div id="cartaPaginas" class="oculto">
+    <img id="paginaCarta" class="imagen" src="pagina1.png" alt="Página de la Carta">
+    <div>
+      <button class="boton" id="atrasCarta">Atrás</button>
+      <button class="boton" id="siguienteCarta">Siguiente</button>
+    </div>
+  </div>
+
+  <script>
+    const cartaCerrada = document.getElementById('cartaCerrada');
+    const cartaAbierta = document.getElementById('cartaAbierta');
+    const opciones = document.getElementById('opciones');
+    const resultado = document.getElementById('resultado');
+    const imagenResultado = document.getElementById('imagenResultado');
+    const volver = document.getElementById('volver');
+    const cartaPaginas = document.getElementById('cartaPaginas');
+    const paginaCarta = document.getElementById('paginaCarta');
+    const atrasCarta = document.getElementById('atrasCarta');
+    const siguienteCarta = document.getElementById('siguienteCarta');
+
+    let paso = 0;
+    let paginaActual = 1;
+
+    cartaCerrada.addEventListener('click', () => {
+      cartaCerrada.classList.add('oculto');
+      cartaAbierta.classList.remove('oculto');
+    });
+
+    cartaAbierta.addEventListener('click', () => {
+      cartaAbierta.classList.add('oculto');
+      opciones.classList.remove('oculto');
+    });
+
+    document.getElementById('copito').addEventListener('click', () => {
+      mostrarResultado('copito.png');
+    });
+
+    document.getElementById('dibujo').addEventListener('click', () => {
+      mostrarResultado('dibujo.png');
+    });
+
+    document.getElementById('carta').addEventListener('click', () => {
+      opciones.classList.add('oculto');
+      cartaPaginas.classList.remove('oculto');
+      paginaActual = 1;
+      actualizarPagina();
+    });
+
+    volver.addEventListener('click', () => {
+      resultado.classList.add('oculto');
+      opciones.classList.remove('oculto');
+    });
+
+    atrasCarta.addEventListener('click', () => {
+      if (paginaActual === 1) {
+        cartaPaginas.classList.add('oculto');
+        opciones.classList.remove('oculto');
+      } else {
+        paginaActual--;
+        actualizarPagina();
+      }
+    });
+
+    siguienteCarta.addEventListener('click', () => {
+      if (paginaActual < 3) {
+        paginaActual++;
+        actualizarPagina();
+      }
+    });
+
+    function mostrarResultado(src) {
+      opciones.classList.add('oculto');
+      resultado.classList.remove('oculto');
+      imagenResultado.src = src;
+    }
+
+    function actualizarPagina() {
+      paginaCarta.src = `pagina${paginaActual}.png`;
+    }
+  </script>
+
+</body>
+</html>
