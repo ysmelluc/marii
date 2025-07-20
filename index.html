@@ -73,6 +73,9 @@
     </div>
   </div>
 
+  <!-- Música oculta -->
+  <audio id="musicaFondo" src="musica.mp3" loop></audio>
+
   <script>
     const cartaCerrada = document.getElementById('cartaCerrada');
     const cartaAbierta = document.getElementById('cartaAbierta');
@@ -84,6 +87,7 @@
     const paginaCarta = document.getElementById('paginaCarta');
     const atrasCarta = document.getElementById('atrasCarta');
     const siguienteCarta = document.getElementById('siguienteCarta');
+    const musicaFondo = document.getElementById('musicaFondo');
 
     let paso = 0;
     let paginaActual = 1;
@@ -91,6 +95,7 @@
     cartaCerrada.addEventListener('click', () => {
       cartaCerrada.classList.add('oculto');
       cartaAbierta.classList.remove('oculto');
+      musicaFondo.play(); // Aquí empieza la música
     });
 
     cartaAbierta.addEventListener('click', () => {
